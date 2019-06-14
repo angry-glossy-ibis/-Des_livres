@@ -17,4 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('entries','EntryController');
+
+Route::get('entries/{entry}/remove', 'EntryController@remove')->name('entries.remove');
+
 Route::get('/home', 'HomeController@index')->name('home');
