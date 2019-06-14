@@ -9,6 +9,23 @@
   "Edit": "Редактировать",
   "Logout": "Выйти",
   "Login": "Войти",
+  "Home page": "Главная страница",
   "Register": "Регистрация",
-  "Blog": "Блог"
+  "Blog": "Блог",
+  "Library": "Библиотека",
+  "E-Mail Address": "E-Mail",
+  "Password": "Пароль",
+  "Remember Me": "Запомнить меня",
+  "Forgot Your Password?": "Забыли пароль?",
+  "Reset Password": "Восстановить пароль",
+  "Confirm Password": "Подтвердите пароль",
+  "Login for the site": "Логин",
+  "You are logged in": "Вы вошли",
+  "Send Password Reset Link": "Отправить данные для сброса пароля",
+  "Before proceeding, please check your email for a verification link.": "Прежде чем продолжить, пожалуйста подтвердите свою электронную почту",
+  "If you did not receive the email": "Если вы не получили письмо: ",
+  "click here to request another": "отправить повторно",
+  "A fresh verification link has been sent to your email address.": "На ваш электронный адрес была отправлена ссыла для подтверждения.",
+  "These credentials do not match our records.": "Вы ввели неверные данные."
+
 }

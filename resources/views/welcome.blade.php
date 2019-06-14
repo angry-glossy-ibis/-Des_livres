@@ -7,7 +7,7 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-        <title>Laravel</title>
+        <title>{{ __('Library') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -48,7 +48,8 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 100px;
+
             }
 
             .links > a {
@@ -61,8 +62,13 @@
                 text-transform: uppercase;
             }
 
-            .m-b-md {
+            .m-b-md > a{
+                color: #636b6f;
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: .1rem;
                 margin-bottom: 30px;
+
             }
         </style>
     </head>
@@ -104,12 +110,12 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="title m-b-md ">
+                    <a href=> MORION</a>
                 </div>
 
                 <div class="links">
-                    <a href=> {{ __('Blog') }}</a>
+                    <a href=> {{ __('Library') }}</a>
                 </div>
             </div>
         </div>
