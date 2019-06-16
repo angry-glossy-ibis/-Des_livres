@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -68,6 +70,7 @@
                             </li>
                         @endguest
                     </ul>
+
                 </div>
             </div>
         </nav>

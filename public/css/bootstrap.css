@@ -1928,6 +1928,7 @@ select.form-control:focus::-ms-value {
 .form-control-range {
   display: block;
   width: 100%;
+  margin-top: 5px;
 }
 
 .col-form-label {
