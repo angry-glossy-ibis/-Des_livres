@@ -3,44 +3,17 @@
 @section('content')
         <div class="container">
             <div class="card row">
-                <div class="card-header">{{__('Home page')}}</div>
+                <div class="card-header">{{__('Library')}}</div>
+                @if (session('status'))
+                    <div class="alert alert-success row" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-                <div class="card-body row">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                        <div class="form-group col">
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                        </div>
-
-                        <select class="form-control col">
-                            <option>{{__('Retailer')}}</option>
-                        </select>
-
-                        <select class="form-control col">
-                            <option>{{__('Genre')}}</option>
-                        </select>
-                </div>
-
-                <div class="card-body row">
-                    <input class="form-control col" type="text" placeholder={{__('Book')}}>
-                    <input class="form-control col" type="text" placeholder={{__('Pages')}}>
-                    <input class="form-control col" type="text" placeholder={{__('Genre')}}>
-                </div>
-
-                <div class="card-header">{{__('Retailer')}}</div>
-
-                <div class="card-body row">
-
-                    <input class="form-control col" type="text" placeholder={{__('Title')}}>
-                    <input class="form-control col" type="text" placeholder={{__('Site')}}>
-                </div>
 
 
                 <div class="card-body  row justify-content-end">
-                    <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Add')}}</button>
+                    <a  class="btn btn-primary my-1 col-sm-2" href="{{ route('livres.create') }}">{{__('Add')}}</a>
                     <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Edit')}}</button>
                     <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Delete')}}</button>
                 </div>

@@ -14,7 +14,7 @@ class LivreController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -24,7 +24,7 @@ class LivreController extends Controller
      */
     public function create()
     {
-        //
+        return view('livres.create');
     }
 
     /**
@@ -35,7 +35,9 @@ class LivreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$kdkdkd = $request->only();
+
+        return redirect(route('/home'));
     }
 
     /**

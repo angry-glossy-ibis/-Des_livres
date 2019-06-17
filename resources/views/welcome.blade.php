@@ -74,6 +74,7 @@
     </head>
     <body>
     <nav class="navbar-expand-md navbar-light navbar-laravel">
+
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -115,10 +116,11 @@
                 </div>
 
                 <div class="links">
-                    <a href=> {{ __('Library') }}</a>
+                    <a href= {{route('home')}}> {{ __('Library') }}</a>
                 </div>
             </div>
         </div>
+
     </nav>
 
     </body>
