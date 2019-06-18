@@ -41,6 +41,7 @@
 
                 <div class="card-body  row justify-content-end">
                     <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Add')}}</button>
+                    <p class="col-sm-1"></p>
                     <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Edit')}}</button>
                     <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Delete')}}</button>
                 </div>
