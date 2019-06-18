@@ -24,7 +24,7 @@
 
 
         <div class="card-body row">
-            {{ Form::text('email', '' , array('class' => 'form-control col', 'placeholder'))}}
+            {{ Form::color('email', '' , array('class' => 'form-control col', 'placeholder' => 'Что-то там', 'type'=> 'color'))}}
         </div>
 
 
