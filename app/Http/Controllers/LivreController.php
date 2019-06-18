@@ -40,7 +40,6 @@ class LivreController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->route('home.index');
         return redirect()->action('LivreController@index');
     }
 

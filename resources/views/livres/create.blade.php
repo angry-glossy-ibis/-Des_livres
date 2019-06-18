@@ -4,6 +4,7 @@
 
 <div class="container">
     <form action="{{route('home.store')}}" method="POST">
+        @csrf
         <div class="card-body row">
 
             <div class="row align-content-center">
