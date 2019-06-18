@@ -16,8 +16,8 @@ class CreateRetailerTable extends Migration
         Schema::create('retailer', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('Title');
-            $table->string('Site');
+            $table->string('Title_Retailer')->unique();
+            $table->string('Site')->unique();
             $table->boolean('LogicalDelete')->default(0);
         });
     }
