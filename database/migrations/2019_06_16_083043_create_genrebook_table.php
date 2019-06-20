@@ -16,8 +16,8 @@ class CreateGenrebookTable extends Migration
         Schema::create('genrebook', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('NameGenre');
-            $table->boolean('LogicalDelete')->default(0);
+            $table->string('NameGenre')->unique();
+            $table->boolean('LogicalDelete')->default(0)->nullable();
         });
     }
 

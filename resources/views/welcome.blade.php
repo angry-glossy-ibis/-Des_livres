@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="links">
-                    <a href= {{route('home')}}> {{ __('Library') }}</a>
+                    <a href= {{route('home.index')}}> {{ __('Library') }}</a>
                 </div>
             </div>
         </div>

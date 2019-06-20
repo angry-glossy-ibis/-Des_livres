@@ -1,94 +1,151 @@
 @extends('layouts.app')
 
 @section('content')
+
         <div class="container">
-            <div class="card row">
-                <div class="card-header">{{__('Library')}}</div>
+            <div class="card">
+                <div class="card-header " style="padding-bottom: 10px;margin-bottom: 35px">
+                    <div class="row justify-content-between" >
+                        <h4>{{__('Library')}}</h4>
+                        <a class="btn btn-primary " href="{{ route('home.create') }}" style="  padding-right: 25px; padding-left: 25px; margin-right: 5px">{{__('Add')}}</a>
+                    </div>
+                </div>
                 @if (session('status'))
                     <div class="alert alert-success row" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
+                <div class="card-deck " style="margin-left: 1.6%; margin-right: 1%" >
+                    <div class="col-md-4 mb-auto"  >
+                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
+                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
+                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
+                                <div style="position: absolute;">
+                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
+                                </div>
+                                <div style="position: absolute; margin-left: 67%">
+                                    <a  href="#"><i class="fas fa-check"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
+                                    <a  href="#"><i class="far fa-edit"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <h5 class="card-title">Мир без магии</h5>
+                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
+                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
+                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
+                                <p class="card-text">Дата уведомления: не назначена</p>
+                            </div>
+                            <table class="card-footer" style="font-size: 16px; " >
+                                <tr>
+                                    <td align="left">
+                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
+                                    </td>
+                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
+                                </tr>
+                            </table>
 
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-auto">
+                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
+                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
+                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
+                                <div style="position: absolute;">
+                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
+                                </div>
+                                <div style="position: absolute; margin-left: 67%">
+                                    <a  href="#"><i class="fas fa-check"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
+                                    <a  href="#"><i class="far fa-edit"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <h5 class="card-title">Мир без магии</h5>
+                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
+                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
+                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
+                                <p class="card-text">Дата уведомления: не назначена</p>
+                            </div>
+                            <table class="card-footer" style="font-size: 16px; " >
+                                <tr>
+                                    <td align="left">
+                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
+                                    </td>
+                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
+                                </tr>
+                            </table>
 
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-auto">
+                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
+                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
+                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
+                                <div style="position: absolute;">
+                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
+                                </div>
+                                <div style="position: absolute; margin-left: 67%">
+                                    <a  href="#"><i class="fas fa-check"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
+                                    <a  href="#"><i class="far fa-edit"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <h5 class="card-title">Мир без магии</h5>
+                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
+                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
+                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
+                                <p class="card-text">Дата уведомления: не назначена</p>
+                            </div>
+                            <table class="card-footer" style="font-size: 16px; " >
+                                <tr>
+                                    <td align="left">
+                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
+                                    </td>
+                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
+                                </tr>
+                            </table>
 
-                <div class="card-body  row justify-content-end">
-                    <a  class="btn btn-primary my-1 col-sm-2" href="{{ route('livres.create') }}">{{__('Add')}}</a>
-                    <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Edit')}}</button>
-                    <button type="submit" class="btn btn-primary my-1 col-sm-2">{{__('Delete')}}</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-auto">
+                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
+                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
+                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
+                                <div style="position: absolute;">
+                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
+                                </div>
+                                <div style="position: absolute; margin-left: 67%">
+                                    <a  href="#"><i class="fas fa-check"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
+                                    <a  href="#"><i class="far fa-edit"></i></a>
+                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <h5 class="card-title">Мир без магии</h5>
+                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
+                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
+                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
+                                <p class="card-text">Дата уведомления: не назначена</p>
+                            </div>
+                            <table class="card-footer" style="font-size: 16px; " >
+                                <tr>
+                                    <td align="left">
+                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
+                                    </td>
+                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
-
-                    <table class="table table-bordered ">
-                        <thead  align="center" >
-                        <tr>
-                            <th scope="col" rowspan="2">{{__('Select')}}</th>
-                            <th scope="col" rowspan="2">#</th>
-                            <th scope="col" colspan="4">{{__('Book')}}</th>
-                            <th scope="col" colspan="2">{{__('Retailer')}}</th>
-                            <th scope="col" rowspan="2">{{__('Price')}}</th>
-                            <th scope="col" rowspan="2">{{__('Condition')}}</th>
-                            <th scope="col" rowspan="2">{{__('Date add')}}</th>
-                            <th scope="col" rowspan="2">{{__('Date Reminder')}}</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">{{__('Image')}}</th>
-                            <th scope="col">{{__('Book')}}</th>
-                            <th scope="col">{{__('Pages')}}</th>
-                            <th scope="col">{{__('Genre')}}</th>
-                            <th scope="col">{{__('Title')}}</th>
-                            <th scope="col">{{__('Site')}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{--                    @foreach($entries as $entry)--}}
-
-                        {{--                        @endforeach--}}
-                        <tr class="table-secondary">
-                            <td align="center"><div class="form-check ">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
-                                </div></td>
-                            <th scope="row">1</th>
-                            <th></th>
-                            <td>Мир без магии</td>
-                            <td>300</td>
-                            <td>ЛитРпг</td>
-                            <td>Автор тудей</td>
-                            <td> <a href="https://author.today/">https://author.today/</a></td>
-                            <td>150</td>
-                            <td align="center"><div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                </div></td>
-                            <td>16.06.2019</td>
-                            <td><div class="form-group">
-                                    <input type="date" class="form-control">
-                                </div></td>
-                        </tr>
-                        <tr class="table-success">
-                            <td align="center"><div class="form-check ">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
-                                </div></td>
-                            <th scope="row">1</th>
-                            <th></th>
-                            <td>Мир без магии</td>
-                            <td>300</td>
-                            <td>ЛитРпг</td>
-                            <td>Автор тудей</td>
-                            <td> <a href="https://author.today/">https://author.today/</a></td>
-                            <td>150</td>
-                            <td align="center"><div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
-                                </div></td>
-                            <td>16.06.2019</td>
-                            <td><div class="form-group">
-                                    <input type="date" class="form-control">
-                                </div></td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-
             </div>
-
         </div>
 
 @endsection

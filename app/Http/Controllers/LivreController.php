@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class LivreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,7 @@ class LivreController extends Controller
      */
     public function index()
     {
-
+        return view('home');
     }
 
     /**
@@ -35,9 +40,7 @@ class LivreController extends Controller
      */
     public function store(Request $request)
     {
-        //$kdkdkd = $request->only();
-
-        return redirect(route('/home'));
+        return redirect()->action('LivreController@index');
     }
 
     /**

@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::resource('/home','LivreController');
-//
-Route::resource('home/livres', 'LivreController');
+Route::resource('/home','LivreController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::resource('home/livres', 'LivreController');
+
+//Route::get('/home', 'HomeController@index')->name('home');
