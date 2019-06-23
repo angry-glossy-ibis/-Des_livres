@@ -23,43 +23,54 @@
 
         <div class="col">
             <div class="card-body row">
-                <select class="form-control" title="lol" name="Retailer" >
+                <select class="form-control"  name="Retailer" >
                     <option value="1">{{__('Retailer')}}</option>
-                    <option value="2">Соска</option>
+                    <option value="2">Author.Today</option>
                 </select>
             </div>
             <div class=" card-body row">
-                <select class="form-control" name="Genre">
-                    <option value="">{{__('Genre')}}</option>
+                <select class="form-control"  name="Genre">
+                    <option value="1">{{__('Genre')}}</option>
+                    <option value="2">ЛитРПГ</option>
                 </select>
             </div>
             <script>
-                // после загрузки страницы
+
+                function enabled_disabled_select(f) {
+                    var name_select = (f.name  == 'NameGenre') ? "Genre" : "Retailer";
+                    alert('asdasdasd')
+                    if($(f).val() != '' ) {
+                        $('select[name= name_select]').prop('disabled', true);
+                    }
+                    else {
+                        $('select[name= name_select]').prop('disabled', false);
+                    }
+                }
+
                 $(function() {
-                    // установить кнопки свойство disabled, равное true (т.е. сделать её не активной)
-                    $('input[name="Title_Retailer"]').prop('disabled', false);
-                    $('input[name="Site"]').prop('disabled', false);
-                    $('input[name="Genre"]').prop('disabled', false);
+                    $('select[name="Retailer"]').change(function() {
 
-                    // при отпускании клавиши, проверить значение данного поля
-                    $('input[name="Retailer"]').(function() {
-
-                        var selector = document.getElementsByName('Retailer');
-                        var value = selector[selector.selectedIndex].value;
                         // если значение не равно пустой строке
-                        if(document.getElementsByName("Источник").) {
-                            // то сделать кнопку активной (т.е. установить свойству disabled кнопки значение false
+                        if($(this).val() != "1") {
                             $('input[name="Title_Retailer"]').prop('disabled', true);
                             $('input[name="Site"]').prop('disabled', true);
+                        } else {
+
+                            $('input[name="Title_Retailer"]').prop('disabled', false);
+                            $('input[name="Site"]').prop('disabled', false);
                         }
                     });
-                    $('input[name="search"]').keyup(function() {
-                        // если значение не равно пустой строке
-                        if($(this).val() != '') {
-                            // то сделать кнопку активной (т.е. установить свойству disabled кнопки значение false
-                            $('input[name="Genre"]').prop('disabled', true);
+
+                    $('select[name="Genre"]').change(function() {
+
+                        if($(this).val() != "1") {
+                            $('input[name="NameGenre"]').prop('disabled', true);
+                        }
+                        else {
+                            $('input[name="NameGenre"]').prop('disabled', false);
                         }
                     });
+
                 });
             </script>
     {{--        <div class="card-body row">--}}
@@ -92,7 +103,7 @@
 {{--        </div>--}}
 
         <div class="card-body row">
-            <input class="form-control col" type="text" name="Title_Livre" placeholder={{__('Book')}}>
+            <input class="form-control col" type="text" maxlength="150" name="Title_Livre" placeholder={{__('Book')}}>
         </div>
 
         <div class="card-body row">
@@ -100,13 +111,13 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">₽</span>
                 </div>
-                <input class="form-control" type="number" name="Price" placeholder={{__('Price')}}>
+                <input class="form-control" type="number" min="0" name="Price" placeholder={{__('Price')}}>
             </div>
             <div class="col">
-                <input class="form-control" type="number" name="Volume" placeholder={{__('Pages')}}>
+                <input class="form-control" type="number" min="0" name="Volume" placeholder={{__('Pages')}}>
             </div>
             <div class="col">
-                <input class="form-control " type="text" name="NameGenre" placeholder={{__('Genre')}}>
+                <input class="form-control " type="text" maxlength="50" name="NameGenre"  onkeyup="enabled_disabled_select(this)" placeholder={{__('Genre')}}>
             </div>
 
 
@@ -117,8 +128,8 @@
         </div>
 
         <div class="card-body row" style="padding-bottom: 1px">
-            <input class="form-control col" type="text" name="Title_Retailer" placeholder={{__('Title')}}>
-            <input class="form-control col" type="text" name="Site" placeholder={{__('Site')}}>
+            <input class="form-control col" type="text" maxlength="76" name="Title_Retailer"  onkeyup="enabled_disabled_select(this)" placeholder={{__('Title')}}>
+            <input class="form-control col" type="text" maxlength="76" name="Site"  onkeyup="enabled_disabled_select(this)" placeholder={{__('Site')}}>
         </div>
 
         <div class="card-body row justify-content-between" >

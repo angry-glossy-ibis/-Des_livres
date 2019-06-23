@@ -16,13 +16,13 @@ class CreateLivresTable extends Migration
         Schema::create('livres', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('Title_Livre')->unique();
-            $table->bigInteger('GanreBook_id')->unsigned()->nullable();
-            $table->foreign('GenreBook_id')->references('id')->
+            $table->string('Title_Livre',191)->unique();
+            $table->bigInteger('genrebook_id')->unsigned();
+            $table->foreign('genrebook_id')->references('id')->
             on('genrebook')->onDelete('CASCADE')->onUpdate('RESTRICT');
             $table->boolean('Volume')->default(0);
-            $table->string('Image')->nullable();
-            $table->boolean('LogicalDelete')->default(0)->nullable();
+            $table->string('Image',191)->nullable();
+            $table->boolean('LogicalDelete')->default(0);
 
         });
     }

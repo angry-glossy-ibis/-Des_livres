@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Livre;
+use DB;
 use Illuminate\Http\Request;
 
 class LivreController extends Controller
@@ -29,6 +30,7 @@ class LivreController extends Controller
      */
     public function create()
     {
+
         return view('livres.create');
     }
 
@@ -40,6 +42,12 @@ class LivreController extends Controller
      */
     public function store(Request $request)
     {
+        if (DB::select('select * from genrebook where NameGenre = \' ? \'', [$request->input('NameGenre')]) == 0)
+        DB::insert('insert into genrebook (NameGenre) values (?)', [$request->input(NameGenre)]);
+        $id_GanreBook = DB::select('select * from genrebook where NameGenre = ?', [$request->input(NameGenre)]);
+
+//        $livre = new Livre();
+//        $livre = Livre::create();
         return redirect()->action('LivreController@index');
     }
 
