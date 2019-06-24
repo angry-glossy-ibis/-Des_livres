@@ -16,134 +16,48 @@
                     </div>
                 @endif
                 <div class="card-deck " style="margin-left: 1.6%; margin-right: 1%" >
-                    <div class="col-md-4 mb-auto"  >
-                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
-                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
-                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
-                                <div style="position: absolute;">
-                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
-                                </div>
-                                <div style="position: absolute; margin-left: 67%">
-                                    <a  href="#"><i class="fas fa-check"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
-                                    <a  href="#"><i class="far fa-edit"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
-                                </div>
-                            </div>
-                            <div class="card-body ">
-                                <h5 class="card-title">Мир без магии</h5>
-                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
-                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
-                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
-                                <p class="card-text">Дата уведомления: не назначена</p>
-                            </div>
-                            <table class="card-footer" style="font-size: 16px; " >
-                                <tr>
-                                    <td align="left">
-                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
-                                    </td>
-                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
-                                </tr>
-                            </table>
+                    @foreach ($Sources as $Source)
+                        <div class="col-md-4 mb-auto">
+                            <div class="card  bg-light mb-3" style="max-width: 18rem; ">
+                                {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
+                                <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
+                                    <div style="position: absolute;">
+                                        <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
+                                    </div>
+                                    <div  style="position: absolute; margin-left: 67%">
+                                        <span>
+                                        <a  href="#" class=""><i class="fas fa-check"></i></a>
+                                        <a  href="#" class=""><i class="fas fa-ban" ></i></a>
+                                        <a  href="#" class=""><i class="far fa-edit"></i></a>
+                                        <form onsubmit="if(confirm('Удалить?')){return true}else{return false}" action="{{route('home.edit',$Source)}}" method="post" >
+                                            {{csrf_field()}}
+                                            <button type="submit" class="btn btn-link" style="padding: 0"><i class="fas fa-trash-alt" ></i></button>
+                                        </form>
+                                        </span>
 
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-auto">
-                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
-                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
-                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
-                                <div style="position: absolute;">
-                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
+                                    </div>
                                 </div>
-                                <div style="position: absolute; margin-left: 67%">
-                                    <a  href="#"><i class="fas fa-check"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
-                                    <a  href="#"><i class="far fa-edit"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
+                                <div class="card-body ">
+                                    <h5 class="card-title">{{$Source->livre->Title_Livre}}</h5>
+                                    <p class="card-text" style="margin-bottom: 5px">Жанр: {{$Source->livre->genrebook->NameGenre}}, страниц: {{$Source->livre->Volume}}</p>
+                                    <p class="card-text" style="margin-bottom: 5px">Дата добавления: {{ $Source->created_at->format('d-m-Y') }}</p>
+                                    {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
+                                    <p class="card-text">Дата уведомления: {{ $Source->Date_Reminder = 'null' ? 'не назначено' : $Source->Date_Reminder }}</p>
                                 </div>
-                            </div>
-                            <div class="card-body ">
-                                <h5 class="card-title">Мир без магии</h5>
-                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
-                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
-                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
-                                <p class="card-text">Дата уведомления: не назначена</p>
-                            </div>
-                            <table class="card-footer" style="font-size: 16px; " >
-                                <tr>
-                                    <td align="left">
-                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
-                                    </td>
-                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
-                                </tr>
-                            </table>
 
+                                <table class="card-footer" style="font-size: 16px; " >
+                                    @foreach ( $Source->livre->sentence as $sentence)
+                                    <tr>
+                                        <td align="left">
+                                            <a class="" href="{{$sentence->retailer->Site}}" style="padding-left: 4px">{{$sentence->retailer->Title_Retailer}}</a>
+                                        </td>
+                                        <td align="right" style="padding-right: 5px">Цена: {{$sentence->Price}}руб</td>
+                                    </tr>
+                                    @endforeach
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 mb-auto">
-                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
-                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
-                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
-                                <div style="position: absolute;">
-                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
-                                </div>
-                                <div style="position: absolute; margin-left: 67%">
-                                    <a  href="#"><i class="fas fa-check"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
-                                    <a  href="#"><i class="far fa-edit"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
-                                </div>
-                            </div>
-                            <div class="card-body ">
-                                <h5 class="card-title">Мир без магии</h5>
-                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
-                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
-                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
-                                <p class="card-text">Дата уведомления: не назначена</p>
-                            </div>
-                            <table class="card-footer" style="font-size: 16px; " >
-                                <tr>
-                                    <td align="left">
-                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
-                                    </td>
-                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
-                                </tr>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-auto">
-                        <div class="card  bg-light mb-3" style="max-width: 18rem; ">
-                            {{--                    Есть ли картинка , то ставим её, если нет, то ставим дефолтную--}}
-                            <div class="fileinput-preview img-thumbnail card-header" data-trigger="fileinput" style="width: 290px; height: 150px;">
-                                <div style="position: absolute;">
-                                    <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
-                                </div>
-                                <div style="position: absolute; margin-left: 67%">
-                                    <a  href="#"><i class="fas fa-check"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-ban" ></i></a>
-                                    <a  href="#"><i class="far fa-edit"></i></a>
-                                    <a  href="#" class=""><i class="fas fa-trash-alt" ></i></a>
-                                </div>
-                            </div>
-                            <div class="card-body ">
-                                <h5 class="card-title">Мир без магии</h5>
-                                <p class="card-text" style="margin-bottom: 5px">Жанр: ЛитРпг, страниц: 300</p>
-                                <p class="card-text" style="margin-bottom: 5px">Дата добавления: 18.06.2019</p>
-                                {{--                        Если уведомление имеется, то выводим, если нет, то 'Уведомление не назначено'--}}
-                                <p class="card-text">Дата уведомления: не назначена</p>
-                            </div>
-                            <table class="card-footer" style="font-size: 16px; " >
-                                <tr>
-                                    <td align="left">
-                                        <a class="" href="https://author.today/" style="padding-left: 4px">Author.Today</a>
-                                    </td>
-                                    <td align="right" style="padding-right: 5px">Цена: 150руб</td>
-                                </tr>
-                            </table>
-
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

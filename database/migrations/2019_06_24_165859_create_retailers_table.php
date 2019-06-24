@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRetailerTable extends Migration
+class CreateRetailersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRetailerTable extends Migration
      */
     public function up()
     {
-        Schema::create('retailer', function (Blueprint $table) {
+        Schema::create('retailers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('Title_Retailer',191)->unique();
@@ -29,6 +29,6 @@ class CreateRetailerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retailer');
+        Schema::dropIfExists('retailers');
     }
 }

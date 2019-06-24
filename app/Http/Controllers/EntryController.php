@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entry;
+use App\genrebook;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Null_;
 use App\Http\Requests\StoreRoomRequest;
@@ -54,16 +55,26 @@ class EntryController extends Controller
     //КАК ВОЗВРАЩАТЬ БЕЗ ГАЛИМОГО ГОВНА
     public function store(StoreRoomRequest $request)
     {
-        $attributes = $request->only([
-            'title',
-            'content',
-        ]);
+
+
+//        $Genrebook = genrebook::created(['NameGenre' => $request->NameGenre]);
+//
+//        $attributes = $request->only([
+//            'Title_Livre',
+//            'Volume',
+//            'Image',
+//        ]);
+//        $attributes['genrebook_id'] = $Genrebook->id;
+//
+//        $livre = Livre::create($attributes);
+//
+//        $Retailer
 
         //Внешний ключ, указывающий на автора записи
-        $attributes['user_id'] = $request->user()->id;
+        //$attributes['user_id'] = $request->user()->id;
         //$attributes['user_id'] = 1;
 
-        $entry = Entry::create($attributes);
+
 
         return redirect(route('entries.index'));
     }

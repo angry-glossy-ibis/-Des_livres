@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenrebookTable extends Migration
+class CreateGenrebooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGenrebookTable extends Migration
      */
     public function up()
     {
-        Schema::create('genrebook', function (Blueprint $table) {
+        Schema::create('genrebooks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('NameGenre', 191)->unique();
@@ -28,6 +28,6 @@ class CreateGenrebookTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genrebook');
+        Schema::dropIfExists('genrebooks');
     }
 }

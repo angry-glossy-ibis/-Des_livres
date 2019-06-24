@@ -23,13 +23,13 @@
 
         <div class="col">
             <div class="card-body row">
-                <select class="form-control"  name="Retailer" >
+                <select class="form-control"  name="#" >
                     <option value="1">{{__('Retailer')}}</option>
                     <option value="2">Author.Today</option>
                 </select>
             </div>
             <div class=" card-body row">
-                <select class="form-control"  name="Genre">
+                <select class="form-control"  name="#">
                     <option value="1">{{__('Genre')}}</option>
                     <option value="2">ЛитРПГ</option>
                 </select>
@@ -38,7 +38,7 @@
 
                 function enabled_disabled_select(f) {
                     var name_select = (f.name  == 'NameGenre') ? "Genre" : "Retailer";
-                    alert('asdasdasd')
+                    // alert('asdasdasd')
                     if($(f).val() != '' ) {
                         $('select[name= name_select]').prop('disabled', true);
                     }

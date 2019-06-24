@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\genrebook;
 use App\Livre;
+use App\retailer;
+use App\sentence;
+use App\source;
 use DB;
 use Illuminate\Http\Request;
 
@@ -20,7 +24,9 @@ class LivreController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home',[
+            'Sources' => source::whereRaw('user_id = ? and LogicalDelete = 0', auth()->id())->paginate(4)
+        ]);
     }
 
     /**
@@ -31,7 +37,11 @@ class LivreController extends Controller
     public function create()
     {
 
-        return view('livres.create');
+        return view('livres.create',[
+            'Genrebook' => [], 'livre'=> [],
+            'Retailer' => [], 'Sentence' => [],
+            'Source' => [],
+        ]);
     }
 
     /**
@@ -42,12 +52,27 @@ class LivreController extends Controller
      */
     public function store(Request $request)
     {
-        if (DB::select('select * from genrebook where NameGenre = \' ? \'', [$request->input('NameGenre')]) == 0)
-        DB::insert('insert into genrebook (NameGenre) values (?)', [$request->input(NameGenre)]);
-        $id_GanreBook = DB::select('select * from genrebook where NameGenre = ?', [$request->input(NameGenre)]);
+//        if (DB::select('select * from genrebook where NameGenre = \' ? \'', [$request->input('NameGenre')]) == 0)
+//        DB::insert('insert into genrebook (NameGenre) values (?)', [$request->input(NameGenre)]);
+//        $id_GanreBook = DB::select('select * from genrebook where NameGenre = ?', [$request->input(NameGenre)]);
 
 //        $livre = new Livre();
 //        $livre = Livre::create();
+
+        $Genrebook = genrebook::create(['NameGenre' => $request->NameGenre]);
+        $Retailer = retailer::create(['Title_Retailer' => $request->Title_Retailer , 'Site' => $request->Site]);
+
+        $attributes = $request->only([
+            'Title_Livre',
+            'Volume',
+            'Image',
+        ]);
+        $attributes['genrebook_id'] = $Genrebook->id;
+
+        $livre = Livre::create($attributes);
+        sentence::create(['retailer_id' => $Retailer->id, 'livre_id' => $livre->id, 'Price' => $request->Price]);
+        source::create(['user_id' => $request->user()->id, 'livre_id' => $livre->id, ]);
+
         return redirect()->action('LivreController@index');
     }
 
@@ -93,6 +118,6 @@ class LivreController extends Controller
      */
     public function destroy(Livre $livre)
     {
-        //
+
     }
 }

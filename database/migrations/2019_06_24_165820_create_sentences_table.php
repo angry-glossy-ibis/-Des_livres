@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSentenceTable extends Migration
+class CreateSentencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSentenceTable extends Migration
      */
     public function up()
     {
-        Schema::create('sentence', function (Blueprint $table) {
+        Schema::create('sentences', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('retailer_id')->unsigned();
@@ -24,7 +24,6 @@ class CreateSentenceTable extends Migration
             on('livres')->onDelete('CASCADE')->onUpdate('RESTRICT');
             $table->float('Price');
             $table->boolean('LogicalDelete')->default(0)->nullable();
-
         });
     }
 
@@ -35,6 +34,6 @@ class CreateSentenceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sentence');
+        Schema::dropIfExists('sentences');
     }
 }

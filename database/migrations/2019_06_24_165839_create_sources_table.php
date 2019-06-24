@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSourceTable extends Migration
+class CreateSourcesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSourceTable extends Migration
      */
     public function up()
     {
-        Schema::create('source', function (Blueprint $table) {
+        Schema::create('sources', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->dateTime('Date_Reminder');
-            $table->boolean('Condition')->nullable();
+            $table->dateTime('Date_Reminder')->nullable();
+            $table->boolean('Condition')->default(0);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->
             on('users')->onDelete('CASCADE')->onUpdate('RESTRICT');
@@ -35,6 +35,6 @@ class CreateSourceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('source');
+        Schema::dropIfExists('sources');
     }
 }
