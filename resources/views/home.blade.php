@@ -25,15 +25,11 @@
                                         <img data-src="{{asset('/storage/images/book_bw_cmyk-800x400-300x150.png')}}"  alt="...">
                                     </div>
                                     <div  style="position: absolute; margin-left: 67%">
-                                        <span>
                                         <a  href="#" class=""><i class="fas fa-check"></i></a>
                                         <a  href="#" class=""><i class="fas fa-ban" ></i></a>
-                                        <a  href="#" class=""><i class="far fa-edit"></i></a>
-                                        <form onsubmit="if(confirm('Удалить?')){return true}else{return false}" action="{{route('home.edit',$Source)}}" method="post" >
-                                            {{csrf_field()}}
-                                            <button type="submit" class="btn btn-link" style="padding: 0"><i class="fas fa-trash-alt" ></i></button>
-                                        </form>
-                                        </span>
+                                        <a href="{{route('home.edit', $Source)}}" class=""><i class="far fa-edit" ></i></a>
+                                        <a href="{{route('home.update', $Source)}}" class=""><i class="fas fa-trash-alt" ></i></a>
+
 
                                     </div>
                                 </div>

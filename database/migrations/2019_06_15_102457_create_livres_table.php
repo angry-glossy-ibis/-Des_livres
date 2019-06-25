@@ -20,7 +20,7 @@ class CreateLivresTable extends Migration
             $table->bigInteger('genrebook_id')->unsigned()->default(1);
             $table->foreign('genrebook_id')->references('id')->
             on('genrebook')->onDelete('CASCADE')->onUpdate('RESTRICT');
-            $table->boolean('Volume')->default(0);
+            $table->float('Volume')->default(0);
             $table->string('Image',191)->nullable();
             $table->boolean('LogicalDelete')->default(0);
 

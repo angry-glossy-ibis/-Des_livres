@@ -8,15 +8,16 @@ use App\retailer;
 use App\sentence;
 use App\source;
 use DB;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 
-class LivreController extends Controller
+class SourceController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +26,7 @@ class LivreController extends Controller
     public function index()
     {
         return view('home',[
-            'Sources' => source::whereRaw('user_id = ? and LogicalDelete = 0', auth()->id())->paginate(4)
+            'Sources' => source::whereRaw('user_id = ? and LogicalDelete = 0', auth()->id())->paginate(8)
         ]);
     }
 
@@ -36,7 +37,6 @@ class LivreController extends Controller
      */
     public function create()
     {
-
         return view('livres.create',[
             'Genrebook' => [], 'livre'=> [],
             'Retailer' => [], 'Sentence' => [],
@@ -52,13 +52,6 @@ class LivreController extends Controller
      */
     public function store(Request $request)
     {
-//        if (DB::select('select * from genrebook where NameGenre = \' ? \'', [$request->input('NameGenre')]) == 0)
-//        DB::insert('insert into genrebook (NameGenre) values (?)', [$request->input(NameGenre)]);
-//        $id_GanreBook = DB::select('select * from genrebook where NameGenre = ?', [$request->input(NameGenre)]);
-
-//        $livre = new Livre();
-//        $livre = Livre::create();
-
         $Genrebook = genrebook::create(['NameGenre' => $request->NameGenre]);
         $Retailer = retailer::create(['Title_Retailer' => $request->Title_Retailer , 'Site' => $request->Site]);
 
@@ -73,16 +66,16 @@ class LivreController extends Controller
         sentence::create(['retailer_id' => $Retailer->id, 'livre_id' => $livre->id, 'Price' => $request->Price]);
         source::create(['user_id' => $request->user()->id, 'livre_id' => $livre->id, ]);
 
-        return redirect()->action('LivreController@index');
+        return redirect()->action('SourceController@index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Livre  $livre
+     * @param  \App\source  $source
      * @return \Illuminate\Http\Response
      */
-    public function show(Livre $livre)
+    public function show(source $source)
     {
         //
     }
@@ -90,34 +83,38 @@ class LivreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Livre  $livre
+     * @param  \App\source  $source
      * @return \Illuminate\Http\Response
      */
-    public function edit(Livre $livre)
+    public function edit(source $source)
     {
-        //
+        return view('livres.edit',
+            ['source' => $source]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Livre  $livre
+     * @param  \App\source  $source
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Livre $livre)
+    public function update(Request $request, source $source)
     {
-        //
+        //source::where('id', $Source->id)->update(['LogicalDelete' => 1]);
+        $source->update(['LogicalDelete' => 1]);
+        return redirect()->action('SourceController@index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Livre  $livre
+     * @param  \App\source  $source
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Livre $livre)
+    public function destroy(source $source)
     {
-
+        //
     }
 }
