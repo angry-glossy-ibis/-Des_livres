@@ -16,7 +16,7 @@ class CreateLivresTable extends Migration
         Schema::create('livres', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('Title_Livre',191)->unique();
+            $table->string('Title_Livre',191);
             $table->bigInteger('genrebook_id')->unsigned()->default(1);
             $table->foreign('genrebook_id')->references('id')->
             on('genrebook')->onDelete('CASCADE')->onUpdate('RESTRICT');

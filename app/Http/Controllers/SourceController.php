@@ -52,19 +52,33 @@ class SourceController extends Controller
      */
     public function store(Request $request)
     {
-        $Genrebook = genrebook::create(['NameGenre' => $request->NameGenre]);
-        $Retailer = retailer::create(['Title_Retailer' => $request->Title_Retailer , 'Site' => $request->Site]);
+//        if (DB::select('select EXISTS ( select id from source where user_id =  ?  and  livre_id = ? )',
+//                [$request->user()->id, $lol = DB::select('select livres.id from livres join genrebooks ON genrebooks.id = livres.genrebook_id where Title_Livre = " ? " and Volume = ? and NameGenre = " ? "',
+//                    [$request->Title_Livre, $request->Volume, $request->NameGenre]) ] ) == 1)
+//            $request->session()->flash('alert-success', 'User was successful added!');
+//            else {
+                if (DB::select('select not EXISTS ( select id from genrebooks where NameGenre = " ? " )', [$request->NameGenre]) == 1)
+                    $Genrebook = genrebook::create(['NameGenre' => $request->NameGenre]);
+                else $Genrebook = DB::select('select * from genrebooks where NameGenre = "/ ? /"', [$request->NameGenre])->toArray();
 
-        $attributes = $request->only([
-            'Title_Livre',
-            'Volume',
-            'Image',
-        ]);
-        $attributes['genrebook_id'] = $Genrebook->id;
 
-        $livre = Livre::create($attributes);
-        sentence::create(['retailer_id' => $Retailer->id, 'livre_id' => $livre->id, 'Price' => $request->Price]);
-        source::create(['user_id' => $request->user()->id, 'livre_id' => $livre->id, ]);
+                if (DB::select('select not EXISTS ( select id from retailers where Title_Retailer = "/ ? /" or Site = "/ ? /" )', [$request->Title_Retailer, $request->Site] ) == 1)
+                    $Retailer = retailer::create(['Title_Retailer' => $request->Title_Retailer , 'Site' => $request->Site]);
+                else $Retailer = DB::select('select * from retailers where Title_Retailer = "/ ? /" and Site = "/ ? /" ', ['$request->NameGenre']);
+
+
+                $attributes = $request->only([
+                    'Title_Livre',
+                    'Volume',
+                    'Image',
+                ]);
+                $attributes['genrebook_id'] = $Genrebook->id;
+
+                $livre = Livre::create($attributes);
+                sentence::create(['retailer_id' => $Retailer->id, 'livre_id' => $livre->id, 'Price' => $request->Price]);
+                source::create(['user_id' => $request->user()->id, 'livre_id' => $livre->id, ]);
+//            }
+
 
         return redirect()->action('SourceController@index');
     }
