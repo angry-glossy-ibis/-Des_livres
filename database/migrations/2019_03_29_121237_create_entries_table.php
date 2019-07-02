@@ -18,8 +18,8 @@ class CreateEntriesTable extends Migration
             $table->string('title', 191);
             $table->string('PhotoPath', 191)->nullable();
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->
-                on('users')->onDelete('CASCADE')->onUpdate('RESTRICT');
+            $table->foreign('user_id')->references('id')->on('users')
+                  ->onDelete('CASCADE')->onUpdate('RESTRICT');
             $table->text('content');
             $table->timestamps();
         });
