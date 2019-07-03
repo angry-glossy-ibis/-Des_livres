@@ -19,11 +19,11 @@ class CreateSourcesTable extends Migration
             $table->dateTime('Date_Reminder')->nullable();
             $table->boolean('Condition')->default(0);
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->
-            on('users')->onDelete('CASCADE')->onUpdate('RESTRICT');
+            $table->foreign('user_id')->references('id')
+                  ->on('users')->onDelete('CASCADE')->onUpdate('RESTRICT');
             $table->bigInteger('livre_id')->unsigned();
-            $table->foreign('livre_id')->references('id')->
-            on('livres')->onDelete('CASCADE')->onUpdate('RESTRICT');
+            $table->foreign('livre_id')->references('id')
+                  ->on('livres')->onDelete('CASCADE')->onUpdate('RESTRICT');
             $table->boolean('LogicalDelete')->default(0)->nullable();
         });
     }
