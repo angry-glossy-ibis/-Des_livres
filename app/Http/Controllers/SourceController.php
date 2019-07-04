@@ -10,6 +10,7 @@ use App\source;
 use DB;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Session;
 
 class SourceController extends Controller
 {
@@ -27,7 +28,7 @@ class SourceController extends Controller
     {
         DB::enableQueryLog();
         return view('home',[
-            'Sources' => source::whereRaw('user_id = ? and LogicalDelete = 0', auth()->id())->paginate(8)
+            'Sources' => source::whereRaw('user_id = ? and LogicalDelete = 0', auth()->id())->paginate(8),
         ]);
     }
 
@@ -78,14 +79,16 @@ class SourceController extends Controller
                 $attributes['retailer_id'] = $Retailer->id;
 
                 sentence::Where('livre_id', '=', $attributes['livre_id'])
-                    ->orWhere('retailer_id', '=', $attributes['retailer_id'])
-                    ->orWhere('Price', '=', $attributes['Price'])->firstOrCreate($attributes);
-                if (source::where('user_id', '=', $request->user()->id)
-                    ->orWhere('livre_id', '=', $livre->id)
-                    ->orWhere('Condition',  0)->orWhere('LogicalDelete',  0)->count()>0)
+                    ->Where('retailer_id', '=', $attributes['retailer_id'])
+                    ->Where('Price', '=', $attributes['Price'])->firstOrCreate($attributes);
+                if (source::Where('user_id', '=', $request->user()->id)
+                        ->Where('livre_id', '=', $livre->id)
+                        ->Where('Condition',  0)->Where('LogicalDelete',  0)->count()>0)
+                   \session()->flash('flash message', 'Данная книга уже находится у вас в библиотеке');
+
                 source::Where('user_id', '=', $request->user()->id)
-                    ->orWhere('livre_id', '=', $livre->id)
-                    ->orWhere('Condition',  0)->orWhere('LogicalDelete',  0)->firstOrCreate(['user_id' => $request->user()->id, 'livre_id'=> $livre->id]);
+                    ->Where('livre_id', '=', $livre->id)
+                    ->Where('Condition',  0)->Where('LogicalDelete',  0)->firstOrCreate(['user_id' => $request->user()->id, 'livre_id'=> $livre->id]);
 //            }
 
 

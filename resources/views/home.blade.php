@@ -2,8 +2,24 @@
 
 @section('content')
 
+    <script>
+        $(function () {
+            $('div.alert').delay(5000).slideUp(300)
+        })
+        function log_del() {
+           if(confirm('Вы действительно хотите удалить данную книгу?')){
+                return true;
+           }
+           else {
+               return false;
+           }
+        }
+    </script>
         <div class="container">
             <div class="card">
+                @if (Session::has('flash message'))
+                    <div class="alert alert-danger">{{ Session('flash message') }}</div>
+                @endif
                 <div class="card-header " style="padding-bottom: 10px;margin-bottom: 35px">
                     <div class="row justify-content-between" >
                         <h4>{{__('Library')}}</h4>
@@ -28,9 +44,7 @@
                                         <a  href="#" class=""><i class="fas fa-check"></i></a>
                                         <a  href="#" class=""><i class="fas fa-ban" ></i></a>
                                         <a href="{{route('home.edit', $Source)}}" class=""><i class="far fa-edit" ></i></a>
-                                        <a href="{{route('home.update', $Source)}}" class=""><i class="fas fa-trash-alt" ></i></a>
-
-
+                                        <a href="{{route('home.update', $Source)}}" onclick="return log_del()" class=""><i class="fas fa-trash-alt" ></i></a>
                                     </div>
                                 </div>
                                 <div class="card-body ">

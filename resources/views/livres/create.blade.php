@@ -70,6 +70,7 @@
                         }
                     });
 
+
                     $('select[name="Genre"]').change(function() {
                         if($(this).val() != "1") {
                             $('input[name="NameGenre"]').val($(this).find('option:selected').text());
