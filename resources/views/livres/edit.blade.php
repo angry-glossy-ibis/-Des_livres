@@ -104,7 +104,7 @@
             {{--        </div>--}}
 
             <div class="card-body row">
-                <input class="form-control col" type="text" maxlength="150" name="Title_Livre" value="{{$source->id}}">
+                <input class="form-control col" type="text" maxlength="150" name="Title_Livre" value="{{$source}}">
             </div>
 
             <div class="card-body row">

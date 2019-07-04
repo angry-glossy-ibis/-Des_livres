@@ -23,47 +23,56 @@
 
         <div class="col">
             <div class="card-body row">
-                <select class="form-control"  name="#" >
+                <select class="form-control"  name="Retailer" >
                     <option value="1">{{__('Retailer')}}</option>
-                    <option value="2">Author.Today</option>
+                    @foreach($Retailers as $Retailer)
+                    <option value="{{$Retailer->id + 1}}">{{ $Retailer->Title_Retailer }}</option>
+                        @endforeach
                 </select>
             </div>
             <div class=" card-body row">
-                <select class="form-control"  name="#">
+                <select class="form-control"  name="Genre">
                     <option value="1">{{__('Genre')}}</option>
-                    <option value="2">ЛитРПГ</option>
+                    @foreach($Genrebooks as $Genrebook)
+                    <option value="{{$Genrebook->id + 1}}">{{ $Genrebook->NameGenre }}</option>
+                        @endforeach
                 </select>
             </div>
             <script>
 
+
+
                 function enabled_disabled_select(f) {
                     var name_select = (f.name  == 'NameGenre') ? "Genre" : "Retailer";
-                    // alert('asdasdasd')
                     if($(f).val() != '' ) {
-                        $('select[name= name_select]').prop('disabled', true);
+                        $('select[name= "' + name_select + '"]').prop('disabled', true);
                     }
                     else {
-                        $('select[name= name_select]').prop('disabled', false);
+                        if (name_select == "Retailer")
+                            if ($('input[name="Site"]').val() != '' || $('input[name="Title_Retailer"]').val() != '')
+                                return;
+                        $('select[name="' + name_select + '"]').prop('disabled', false);
                     }
                 }
 
                 $(function() {
-                    $('select[name="Retailer"]').change(function() {
-
+                    $('select[name="Retailer"]').change(function(Retailer) {
                         // если значение не равно пустой строке
                         if($(this).val() != "1") {
+                            $('input[name="Title_Retailer"]').val($(this).find('option:selected').text());
+                            $('input[name="Site"]').val('...');
                             $('input[name="Title_Retailer"]').prop('disabled', true);
                             $('input[name="Site"]').prop('disabled', true);
-                        } else {
 
+                        } else {
                             $('input[name="Title_Retailer"]').prop('disabled', false);
                             $('input[name="Site"]').prop('disabled', false);
                         }
                     });
 
                     $('select[name="Genre"]').change(function() {
-
                         if($(this).val() != "1") {
+                            $('input[name="NameGenre"]').val($(this).find('option:selected').text());
                             $('input[name="NameGenre"]').prop('disabled', true);
                         }
                         else {

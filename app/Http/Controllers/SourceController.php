@@ -25,6 +25,7 @@ class SourceController extends Controller
      */
     public function index()
     {
+        DB::enableQueryLog();
         return view('home',[
             'Sources' => source::whereRaw('user_id = ? and LogicalDelete = 0', auth()->id())->paginate(8)
         ]);
@@ -38,8 +39,8 @@ class SourceController extends Controller
     public function create()
     {
         return view('livres.create',[
-            'Genrebook' => [], 'livre'=> [],
-            'Retailer' => [], 'Sentence' => [],
+            'Genrebooks' => genrebook::where('LogicalDelete', 0)->get(), 'livre'=> [],
+            'Retailers' => retailer::where('LogicalDelete', 0)->get(), 'Sentence' => [],
             'Source' => [],
         ]);
     }
@@ -52,31 +53,39 @@ class SourceController extends Controller
      */
     public function store(Request $request)
     {
-//        if (DB::select('select EXISTS ( select id from source where user_id =  ?  and  livre_id = ? )',
-//                [$request->user()->id, $lol = DB::select('select livres.id from livres join genrebooks ON genrebooks.id = livres.genrebook_id where Title_Livre = " ? " and Volume = ? and NameGenre = " ? "',
-//                    [$request->Title_Livre, $request->Volume, $request->NameGenre]) ] ) == 1)
-//            $request->session()->flash('alert-success', 'User was successful added!');
-//            else {
-                if (DB::select('select not EXISTS ( select id from genrebooks where NameGenre = " ? " )', [$request->NameGenre]) == 1)
-                    $Genrebook = genrebook::create(['NameGenre' => $request->NameGenre]);
-                else $Genrebook = DB::select('select * from genrebooks where NameGenre = "/ ? /"', [$request->NameGenre])->toArray();
 
-
-                if (DB::select('select not EXISTS ( select id from retailers where Title_Retailer = "/ ? /" or Site = "/ ? /" )', [$request->Title_Retailer, $request->Site] ) == 1)
-                    $Retailer = retailer::create(['Title_Retailer' => $request->Title_Retailer , 'Site' => $request->Site]);
-                else $Retailer = DB::select('select * from retailers where Title_Retailer = "/ ? /" and Site = "/ ? /" ', ['$request->NameGenre']);
-
+                $Genrebook= genrebook::firstOrCreate(['NameGenre' => $request->get('NameGenre')]);
+                $attributes = $request->only(['Title_Retailer', 'Site']);
+                $Retailer = Retailer::where('Title_Retailer', '=', $attributes['Title_Retailer'])
+                    ->orWhere('Site', '=', $attributes['Site']) ->firstOrCreate($attributes);
 
                 $attributes = $request->only([
                     'Title_Livre',
                     'Volume',
                     'Image',
                 ]);
-                $attributes['genrebook_id'] = $Genrebook->id;
+                $attributes['genrebook_id']= $Genrebook->id;
 
-                $livre = Livre::create($attributes);
-                sentence::create(['retailer_id' => $Retailer->id, 'livre_id' => $livre->id, 'Price' => $request->Price]);
-                source::create(['user_id' => $request->user()->id, 'livre_id' => $livre->id, ]);
+                $livre = Livre::where('Title_Livre', '=', $attributes['Title_Livre'])
+                    ->orWhere('genrebook_id', '=', $attributes['genrebook_id'])
+                    ->orWhere('Volume', '=', $attributes['Volume'])
+                    ->orWhere('LogicalDelete', 0)->firstOrCreate($attributes);
+
+                $attributes = $request->only([
+                    'Price',
+                ]);
+                $attributes['livre_id'] = $livre->id;
+                $attributes['retailer_id'] = $Retailer->id;
+
+                sentence::Where('livre_id', '=', $attributes['livre_id'])
+                    ->orWhere('retailer_id', '=', $attributes['retailer_id'])
+                    ->orWhere('Price', '=', $attributes['Price'])->firstOrCreate($attributes);
+                if (source::where('user_id', '=', $request->user()->id)
+                    ->orWhere('livre_id', '=', $livre->id)
+                    ->orWhere('Condition',  0)->orWhere('LogicalDelete',  0)->count()>0)
+                source::Where('user_id', '=', $request->user()->id)
+                    ->orWhere('livre_id', '=', $livre->id)
+                    ->orWhere('Condition',  0)->orWhere('LogicalDelete',  0)->firstOrCreate(['user_id' => $request->user()->id, 'livre_id'=> $livre->id]);
 //            }
 
 
@@ -102,6 +111,8 @@ class SourceController extends Controller
      */
     public function edit(source $source)
     {
+
+        dd(DB::getQueryLog());
         return view('livres.edit',
             ['source' => $source]
         );
@@ -116,8 +127,9 @@ class SourceController extends Controller
      */
     public function update(Request $request, source $source)
     {
-        //source::where('id', $Source->id)->update(['LogicalDelete' => 1]);
-        $source->update(['LogicalDelete' => 1]);
+        dd(DB::getQueryLog());
+       // source::where('id', $request->id)->update(['LogicalDelete' => 1]);
+        //$source::saved(['LogicalDelete', 1]);
         return redirect()->action('SourceController@index');
     }
 
