@@ -18,6 +18,7 @@ class SourceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        DB::enableQueryLog();
     }
     /**
      * Display a listing of the resource.
@@ -115,7 +116,7 @@ class SourceController extends Controller
     public function edit(source $source)
     {
 
-        dd(DB::getQueryLog());
+        //dd(DB::getQueryLog());
         return view('livres.edit',
             ['source' => $source]
         );

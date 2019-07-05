@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <form action="{{route('home.update', $source)}}" method="POST">
+        <form action="{{route('sources.update', $source)}}" method="POST">
             <input type="hidden" name="_method" value="PUT">
             {{csrf_field()}}
             <div class="card-body row">
@@ -104,7 +104,7 @@
             {{--        </div>--}}
 
             <div class="card-body row">
-                <input class="form-control col" type="text" maxlength="150" name="Title_Livre" value="{{$source}}">
+                <input class="form-control col" type="text" maxlength="150" name="Title_Livre" value="{{$source->id}}">
             </div>
 
             <div class="card-body row">

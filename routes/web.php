@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('/home','SourceController');
+Route::prefix('home')->group(function () {
+    Route::resource('sources', 'SourceController');
+});
 
 //Route::resource('home/livres', 'LivreController');
 
